@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}Meus empréstimos — Biblioteca UEMS{% endblock %}
+
+{% block conteudo %}
+<h1>Meus empréstimos</h1>
+
+{% if emprestimos %}
+<table>
+  <tr>
+    <th>Livro</th><th>Retirada</th><th>Devolver até</th>
+    <th>Devolvido em</th><th>Situação</th>
+  </tr>
+  {% for e in emprestimos %}
+  <tr>
+    <td>{{ e.livro.titulo }}</td>
+    <td>{{ e.data_retirada|data }}</td>
+    <td>{{ e.data_prevista|data }}</td>
+    <td>{{ e.data_devolucao|data }}</td>
+    <td>
+      {% if e.multa %}
+        <span class="tag vermelho">
+          Multa de {{ e.multa.valor|reais }} — {{ e.multa.status }}
+        </span>
+      {% elif e.devolvido() %}
+        <span class="tag cinza">Devolvido no prazo</span>
+      {% elif e.esta_atrasado() %}
+        <span class="tag vermelho">
+          {{ e.dias_de_atraso() }} dia(s) de atraso — multa de
+          {{ e.calcular_multa()|reais }}
+        </span>
+      {% else %}
+        <span class="tag verde">Em dia</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p class="nota">
+  A multa é de {{ multa_por_dia|reais }} por dia de atraso, por livro.
+</p>
+{% else %}
+<p class="vazio">Você ainda não pegou nenhum livro emprestado.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block titulo %}Empréstimos — Biblioteca UEMS{% endblock %}
+
+{% block conteudo %}
+<h1>Empréstimos</h1>
+
+<form class="formulario embutido" method="post">
+  <strong>Registrar novo empréstimo</strong>
+
+  <div class="linha">
+    <select name="aluno_id" required>
+      <option value="">Escolha o aluno</option>
+      {% for a in alunos %}
+        <option value="{{ a.id }}">{{ a.nome }} ({{ a.matricula }})</option>
+      {% endfor %}
+    </select>
+
+    <select name="livro_id" required>
+      <option value="">Escolha o livro</option>
+      {% for l in livros %}
+        <option value="{{ l.id }}" {% if not l.tem_disponivel() %}disabled{% endif %}>
+          {{ l.titulo }}
+          {% if l.tem_disponivel() %}({{ l.qtd_disponiveis() }} livres)
+          {% else %}(esgotado){% endif %}
+        </option>
+      {% endfor %}
+    </select>
+
+    <button type="submit">Emprestar</button>
+  </div>
+  <p class="nota">A devolução é calculada automaticamente: {{ prazo }} dias.</p>
+</form>
+
+<h2>Em aberto</h2>
+{% if ativos %}
+<table>
+  <tr>
+    <th>Aluno</th><th>Livro</th><th>Retirada</th>
+    <th>Devolver até</th><th>Situação</th><th></th>
+  </tr>
+  {% for e in ativos %}
+  <tr>
+    <td>{{ e.aluno.nome }}</td>
+    <td>{{ e.livro.titulo }}</td>
+    <td>{{ e.data_retirada|data }}</td>
+    <td>{{ e.data_prevista|data }}</td>
+    <td>
+      {% if e.esta_atrasado() %}
+        <span class="tag vermelho">
+          {{ e.dias_de_atraso() }} dia(s) — multa de {{ e.calcular_multa()|reais }}
+        </span>
+      {% else %}
+        <span class="tag verde">Em dia</span>
+      {% endif %}
+    </td>
+    <td class="acoes">
+      <form method="post" action="{{ url_for('devolver', emprestimo_id=e.id) }}">
+        <button type="submit">Devolver</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="vazio">Nenhum empréstimo em aberto.</p>
+{% endif %}
+
+<h2>Multas em aberto</h2>
+{% if multas %}
+<table>
+  <tr><th>Aluno</th><th>Livro</th><th>Dias de atraso</th><th>Valor</th><th></th></tr>
+  {% for m in multas %}
+  <tr>
+    <td>{{ m.emprestimo.aluno.nome }}</td>
+    <td>{{ m.emprestimo.livro.titulo }}</td>
+    <td>{{ m.emprestimo.dias_de_atraso() }}</td>
+    <td class="destaque">{{ m.valor|reais }}</td>
+    <td class="acoes">
+      <form method="post" action="{{ url_for('pagar_multa', multa_id=m.id) }}">
+        <button type="submit">Registrar pagamento</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="vazio">Nenhuma multa em aberto.</p>
+{% endif %}
+{% endblock %}

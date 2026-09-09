@@ -1,0 +1,226 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #222;
+  background: #f4f6f9;
+}
+
+/* ------------------------------------------------------------- topo */
+
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 24px;
+  background: #1f4e79;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.marca { font-weight: bold; font-size: 17px; }
+
+.topo nav { display: flex; gap: 18px; flex: 1; flex-wrap: wrap; }
+
+.topo nav a {
+  color: #d8e6f3;
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+.topo nav a:hover { color: #fff; border-bottom-color: #fff; }
+
+.usuario { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+
+.etiqueta {
+  background: #ffffff22;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.sair { color: #ffd7d7; text-decoration: none; }
+.sair:hover { text-decoration: underline; }
+
+/* --------------------------------------------------------- conteúdo */
+
+main { max-width: 1050px; margin: 24px auto; padding: 0 20px 40px; }
+
+h1 { font-size: 22px; margin: 0 0 18px; color: #1f4e79; }
+h2 { font-size: 17px; margin: 28px 0 12px; color: #1f4e79; }
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vazio { color: #777; font-style: italic; }
+.nota { color: #666; font-size: 13px; }
+.resultado { color: #555; font-size: 14px; }
+.destaque { font-weight: bold; color: #b00020; }
+
+/* ---------------------------------------------------------- avisos */
+
+.aviso {
+  padding: 11px 14px;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  border-left: 4px solid;
+}
+.aviso.ok     { background: #e7f6ec; border-color: #2e7d32; color: #1b5e20; }
+.aviso.erro   { background: #fdecea; border-color: #c62828; color: #8e1b16; }
+.aviso.aviso  { background: #fff5e0; border-color: #ef6c00; color: #8a4b00; }
+
+/* --------------------------------------------------------- tabelas */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th {
+  background: #eaf0f7;
+  color: #1f4e79;
+  text-align: left;
+  font-size: 13px;
+  padding: 10px 12px;
+}
+
+td { padding: 10px 12px; border-top: 1px solid #eef1f5; }
+tr:hover td { background: #fafcfe; }
+
+.acoes { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+.acoes form { margin: 0; }
+.acoes a { color: #1f4e79; }
+
+/* ------------------------------------------------------------ tags */
+
+.tag { padding: 3px 9px; border-radius: 10px; font-size: 12px; }
+.tag.verde    { background: #e7f6ec; color: #1b5e20; }
+.tag.vermelho { background: #fdecea; color: #8e1b16; }
+.tag.cinza    { background: #eceff1; color: #546e7a; }
+
+/* -------------------------------------------------------- formulários */
+
+button, .botao {
+  background: #1f4e79;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+button:hover, .botao:hover { background: #163a5a; }
+
+button.perigo { background: #c62828; }
+button.perigo:hover { background: #9c1f1f; }
+
+.cancelar, .limpar { color: #555; text-decoration: none; padding: 8px 6px; }
+.cancelar:hover, .limpar:hover { text-decoration: underline; }
+
+input[type=text], input[type=email], input[type=password], select {
+  padding: 8px 10px;
+  border: 1px solid #c6cfda;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+}
+
+.formulario {
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+  padding: 20px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formulario label { font-size: 13px; color: #555; margin-top: 8px; }
+.formulario .botoes { margin-top: 18px; display: flex; align-items: center; gap: 8px; }
+
+.formulario.embutido { max-width: none; }
+.formulario.embutido .linha { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.formulario.embutido select { flex: 1; min-width: 200px; }
+
+.filtro {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filtro input[type=text] { flex: 1; min-width: 220px; }
+.marcador { font-size: 14px; color: #444; display: flex; align-items: center; gap: 5px; }
+
+/* ----------------------------------------------------------- cartões */
+
+.cartoes { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+
+.cartao {
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-left: 4px solid #1f4e79;
+  border-radius: 6px;
+  padding: 16px 22px;
+  min-width: 170px;
+}
+.cartao.alerta { border-left-color: #c62828; }
+.cartao .numero { display: block; font-size: 28px; font-weight: bold; color: #1f4e79; }
+.cartao.alerta .numero { color: #c62828; }
+.cartao .rotulo { font-size: 13px; color: #666; }
+
+/* ------------------------------------------------------------- login */
+
+.caixa-login {
+  max-width: 380px;
+  margin: 60px auto;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  padding: 34px;
+  text-align: center;
+}
+
+.caixa-login h1 { margin-bottom: 4px; }
+.caixa-login .sub { color: #777; font-size: 13px; margin: 0 0 24px; }
+.caixa-login form { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.caixa-login label { font-size: 13px; color: #555; margin-top: 8px; }
+.caixa-login button { margin-top: 18px; padding: 10px; }
+
+.dica {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eef1f5;
+  font-size: 12px;
+  color: #666;
+  text-align: left;
+  line-height: 1.7;
+}
+.dica code { background: #f0f3f7; padding: 1px 5px; border-radius: 3px; }
+
+/* ------------------------------------------------------------ rodapé */
+
+footer {
+  text-align: center;
+  padding: 18px;
+  color: #888;
+  font-size: 12px;
+  border-top: 1px solid #e3e8ee;
+}

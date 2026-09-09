@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Biblioteca UEMS{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<body>
+
+{% if usuario %}
+<header class="topo">
+  <div class="marca">Biblioteca UEMS</div>
+
+  <nav>
+    <a href="{{ url_for('painel') }}">Painel</a>
+    <a href="{{ url_for('acervo') }}">Acervo</a>
+    {% if usuario.e_bibliotecario() %}
+      <a href="{{ url_for('livros') }}">Livros</a>
+      <a href="{{ url_for('emprestimos') }}">Empréstimos</a>
+    {% else %}
+      <a href="{{ url_for('meus_emprestimos') }}">Meus empréstimos</a>
+    {% endif %}
+  </nav>
+
+  <div class="usuario">
+    {{ usuario.nome }}
+    <span class="etiqueta">
+      {{ 'Bibliotecário' if usuario.e_bibliotecario() else 'Aluno' }}
+    </span>
+    <a class="sair" href="{{ url_for('logout') }}">Sair</a>
+  </div>
+</header>
+{% endif %}
+
+<main>
+  {% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% for categoria, texto in mensagens %}
+      <div class="aviso {{ categoria }}">{{ texto }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  {% block conteudo %}{% endblock %}
+</main>
+
+<footer>
+  UEMS — Laboratório de Sistemas de Informação · Etapa 3 ·
+  João Pedro Recalcatti e Sidney Alves Junior
+</footer>
+
+</body>
+</html>

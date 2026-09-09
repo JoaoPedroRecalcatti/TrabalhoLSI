@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titulo %}Acervo — Biblioteca UEMS{% endblock %}
+
+{% block conteudo %}
+<h1>Consultar acervo</h1>
+
+<form class="filtro" method="get">
+  <input type="text" name="termo" value="{{ termo }}"
+         placeholder="Buscar por título ou autor">
+
+  <select name="categoria">
+    <option value="">Todas as categorias</option>
+    {% for c in categorias %}
+      <option value="{{ c }}" {% if c == categoria %}selected{% endif %}>{{ c }}</option>
+    {% endfor %}
+  </select>
+
+  <label class="marcador">
+    <input type="checkbox" name="disponiveis" value="1"
+           {% if so_disponiveis %}checked{% endif %}>
+    Só disponíveis
+  </label>
+
+  <button type="submit">Filtrar</button>
+  <a class="limpar" href="{{ url_for('acervo') }}">Limpar</a>
+</form>
+
+<p class="resultado">{{ livros|length }} livro(s) encontrado(s).</p>
+
+{% if livros %}
+<table>
+  <tr>
+    <th>Título</th><th>Autor</th><th>Categoria</th>
+    <th>Ano</th><th>Exemplares</th><th>Disponíveis</th>
+  </tr>
+  {% for l in livros %}
+  <tr>
+    <td>{{ l.titulo }}</td>
+    <td>{{ l.autor or '—' }}</td>
+    <td>{{ l.categoria or '—' }}</td>
+    <td>{{ l.ano or '—' }}</td>
+    <td>{{ l.qtd_exemplares }}</td>
+    <td>
+      {% if l.tem_disponivel() %}
+        <span class="tag verde">{{ l.qtd_disponiveis() }}</span>
+      {% else %}
+        <span class="tag vermelho">esgotado</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="vazio">Nenhum livro encontrado com esse filtro.</p>
+{% endif %}
+{% endblock %}

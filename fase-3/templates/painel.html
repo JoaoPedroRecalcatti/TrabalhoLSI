@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block titulo %}Painel — Biblioteca UEMS{% endblock %}
+
+{% block conteudo %}
+<h1>Painel</h1>
+
+{% if usuario.e_bibliotecario() %}
+
+  <div class="cartoes">
+    <div class="cartao">
+      <span class="numero">{{ total_livros }}</span>
+      <span class="rotulo">livros cadastrados</span>
+    </div>
+    <div class="cartao">
+      <span class="numero">{{ ativos }}</span>
+      <span class="rotulo">empréstimos em aberto</span>
+    </div>
+    <div class="cartao {% if atrasados %}alerta{% endif %}">
+      <span class="numero">{{ atrasados|length }}</span>
+      <span class="rotulo">em atraso</span>
+    </div>
+  </div>
+
+  {% if atrasados %}
+    <h2>Empréstimos atrasados</h2>
+    <table>
+      <tr><th>Aluno</th><th>Livro</th><th>Prevista</th><th>Atraso</th><th>Multa até hoje</th></tr>
+      {% for e in atrasados %}
+      <tr>
+        <td>{{ e.aluno.nome }}</td>
+        <td>{{ e.livro.titulo }}</td>
+        <td>{{ e.data_prevista|data }}</td>
+        <td>{{ e.dias_de_atraso() }} dia(s)</td>
+        <td class="destaque">{{ e.calcular_multa()|reais }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
+{% else %}
+
+  <p>Você tem <strong>{{ meus|length }}</strong> livro(s) emprestado(s).</p>
+
+  {% if meus %}
+    <table>
+      <tr><th>Livro</th><th>Retirada</th><th>Devolver até</th><th>Situação</th></tr>
+      {% for e in meus %}
+      <tr>
+        <td>{{ e.livro.titulo }}</td>
+        <td>{{ e.data_retirada|data }}</td>
+        <td>{{ e.data_prevista|data }}</td>
+        <td>
+          {% if e.esta_atrasado() %}
+            <span class="tag vermelho">
+              {{ e.dias_de_atraso() }} dia(s) de atraso — multa de
+              {{ e.calcular_multa()|reais }}
+            </span>
+          {% else %}
+            <span class="tag verde">Em dia</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="vazio">Nenhum empréstimo em aberto.</p>
+  {% endif %}
+
+{% endif %}
+{% endblock %}
