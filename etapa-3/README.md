@@ -63,7 +63,7 @@ Outras regras que também estão implementadas:
 ## Arquivos
 
 ```
-fase-3/
+etapa-3/
 ├── app.py            → as rotas (as telas do sistema)
 ├── models.py         → as 4 tabelas e as regras de negócio
 ├── criar_banco.py    → cria o banco e põe os dados de exemplo
