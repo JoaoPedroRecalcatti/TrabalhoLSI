@@ -1,5 +1,5 @@
 """
-Sistema de Gestão de Biblioteca Universitária — protótipo da Etapa 3.
+Sistema de Gestão de Biblioteca Universitária — protótipo da Etapa 3. 
 
 Grupo: João Pedro Recalcatti e Sidney Alves Junior
 
