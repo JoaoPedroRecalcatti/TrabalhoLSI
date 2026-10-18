@@ -222,8 +222,11 @@ def livro_excluir(livro_id):
 @precisa_bibliotecario
 def emprestimos():
     if request.method == "POST":
-        aluno = db.session.get(Usuario, int(request.form.get("aluno_id", 0)))
-        livro = db.session.get(Livro, int(request.form.get("livro_id", 0)))
+        aluno = livro = None
+        if request.form.get("aluno_id", "").isdigit():
+            aluno = db.session.get(Usuario, int(request.form["aluno_id"]))
+        if request.form.get("livro_id", "").isdigit():
+            livro = db.session.get(Livro, int(request.form["livro_id"]))
 
         erro = None
         if aluno is None or livro is None:
