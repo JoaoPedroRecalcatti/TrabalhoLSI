@@ -85,4 +85,4 @@ demais:
   representar herança no banco quando as filhas não têm campos próprios.
 - No diagrama, `Livro` e `Exemplar` são classes separadas. No código o
   exemplar virou o campo `qtd_exemplares` do livro, já que o protótipo não
-  precisa controlar cada cópia individualmente.
+  precisa controlar cada cópia individualmente. 
