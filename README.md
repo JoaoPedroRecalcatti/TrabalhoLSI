@@ -48,4 +48,4 @@ Depois abrir <http://localhost:5000>.
   automaticamente na devolução, com bloqueio do aluno inadimplente (RN06)
 
 Os detalhes de cada tela e a ligação com os diagramas estão no
-[README da etapa 3](etapa-3/README.md).
+[README da etapa 3](etapa-3/README.md). 
