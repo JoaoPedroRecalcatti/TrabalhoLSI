@@ -1,7 +1,7 @@
 """
 Modelos do sistema — só 4 tabelas.
 
-Usuario, Livro, Emprestimo e Multa.
+Usuario, Livro, Emprestimo e Multa. 
 Cada uma corresponde a uma classe do diagrama de classes da Etapa 2.
 """
 from datetime import date, timedelta
